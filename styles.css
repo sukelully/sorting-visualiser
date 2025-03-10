@@ -35,6 +35,10 @@ main {
   border: 4px solid darkblue !important;
 }
 
+#final-array {
+  border: 4px solid darkgreen !important;
+}
+
 #btn-container {
   display: flex;
   justify-content: space-around;

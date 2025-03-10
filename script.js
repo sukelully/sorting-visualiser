@@ -3,6 +3,8 @@ const sortBtn = document.getElementById('sort-btn');
 const startingArray = document.getElementById('starting-array');
 const arrayContainer = document.getElementById('array-container');
 
+const testArr = [92, 3, 42, 69, 91];
+
 // Return a random number between 1-100
 const generateElement = () => {
     return Math.floor(Math.random() * 100 + 1);
@@ -41,9 +43,6 @@ const swapElements = (arr, i) => {
         const temp = arr[i];
         arr[i] = arr[i + 1];
         arr[i + 1] = temp;
-        return false;
-    } else {
-        return true;
     }
 }
 
@@ -52,48 +51,59 @@ const highlightCurrentEls = (el, i) => {
     const children = Array.from(el.children);
 
     children[i].style.border = "dashed 2px red";
-    children[i + 1].style.border = "dashed 2px red";
+    if (children[i + 1]) {
+        children[i + 1].style.border = "dashed 2px red";
+    } else {
+        return;
+    }
 }
 
 // Sort elements
 const bubbleSortStep = (arr, container, i = 0, swapped = false) => {
     // Base case: return when array sorted
     if (i >= arr.length - 1) {
-        if (!swapped) return;
+        if (!swapped) {
+            const finalArray = generateContainer();
+            fillArrContainer(finalArray, arr);
+            finalArray.setAttribute('style', 'border: 4px solid darkgreen !important');
+            arrayContainer.append(finalArray);
+            return;
+        }
 
         // Otherwise, start another full pass from the beginning
-        return setTimeout(() => bubbleSortStep(arr, container, 0, false), 500);
+        return bubbleSortStep(arr, container, 0, false);
+    }
+
+    const currentStep = generateContainer();
+
+    fillArrContainer(currentStep, arr);
+
+    if (!isOrdered(arr[i], arr[i + 1])) {
+        swapElements(arr, i);
+        swapped = true;
     }
 
 
+    highlightCurrentEls(currentStep, i);
+    arrayContainer.append(currentStep);
 
-    setTimeout(() => {
-        if (!isOrdered(arr[i], arr[i + 1])) {
-            swapElements(arr, i);
-            swapped = true;
-            const nextStep = generateContainer();
-            fillArrContainer(nextStep, arr);
-            highlightCurrentEls(nextStep, i);
-            arrayContainer.append(nextStep);
-        }
-
-        // Move to the next pair
-        bubbleSortStep(arr, container, i + 1, swapped);
-    }, 500);
-};
+    // Move to the next pair
+    bubbleSortStep(arr, container, i + 1, swapped);
+}
 
 
 genBtn.addEventListener('click', () => {
     startingArray.innerHTML = "";
 
     fillArrContainer(startingArray, generateArray());
+    // fillArrContainer(startingArray, testArr);
 });
 
 sortBtn.addEventListener('click', () => {
     const arr = Array.from(startingArray.children).map(el => Number(el.textContent));
-
-
+    highlightCurrentEls(startingArray, 0);
     bubbleSortStep(arr, startingArray);
+    // bubbleSortStep(testArr, startingArray);
 });
 
 // const randomElement = generateElement();
@@ -109,3 +119,4 @@ sortBtn.addEventListener('click', () => {
 
 // const swapElementsTest = swapElements(testArr, 0);
 // console.log(swapElementsTest);
+// 
