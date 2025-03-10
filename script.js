@@ -28,25 +28,31 @@ function fillArrContainer(container, arr) {
 
 // Return a boolean indicating if the first integer is 
 // less than or equal to the second
-const isOrderded = (a, b) => {
+const isOrdered = (a, b) => {
     return (a <= b);
 }
 
-const swapElements = (arr, index) => {
-    for (let i = 0; i < arr.length; i++) {
-        if (isOrderded(arr[i], arr[i+1])) {
-            console.log('test');
-        }
+const swapElements = (arr, i) => {
+    if (!isOrdered(arr[i], arr[i + 1])) {
+        const temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+        return `${arr} indexes ${i} and ${i + 1} swapped`;
+    } else {
+        return `No elements swapped`;
     }
 }
 
 // const randomElement = generateElement();
 // console.log(randomElement);
 
-const randomArray = generateArray();
+// const randomArray = generateArray();
 // console.log(randomArray);
 
 // const isOrderedTest = isOrderded(1, 2);
 // console.log(isOrderedTest);
 
-const swapElementsTest = swapElements()
+const testArr = [1, 2, 3, 4, 5];
+
+const swapElementsTest = swapElements(testArr, 0);
+console.log(swapElementsTest);
