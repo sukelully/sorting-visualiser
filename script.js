@@ -3,7 +3,6 @@ const sortBtn = document.getElementById('sort-btn');
 const startingArray = document.getElementById('starting-array');
 const arrayContainer = document.getElementById('array-container');
 
-const testArr = [17, 2, 78, 36, 84];
 let count = 0;
 
 // Return a random number between 1-100
@@ -118,7 +117,6 @@ genBtn.addEventListener('click', () => {
     }
 
     fillArrContainer(startingArray, generateArray());
-    // fillArrContainer(startingArray, testArr);
 });
 
 sortBtn.addEventListener('click', () => {
