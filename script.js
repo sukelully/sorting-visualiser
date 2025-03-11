@@ -59,7 +59,8 @@ const bubbleSortStep = (arr, i = 0, swapped = false) => {
     if (i >= arr.length - 1) {
         // Base case, array sorted
         if (!swapped) {
-            console.log('End of array and swapped = false')
+            const finalArray = Array.from(arrayContainer.children)[count-1];
+            console.log(finalArray);
             return;
         }
 
@@ -101,10 +102,21 @@ const highlightFinalArray = () => {
 }
 
 genBtn.addEventListener('click', () => {
+    count = 0;
+
+    const arrayList = Array.from(arrayContainer.children);
     startingArray.innerHTML = "";
 
-    // fillArrContainer(startingArray, generateArray());
-    fillArrContainer(startingArray, testArr);
+    if (arrayList.length > 1) {
+        arrayContainer.innerHTML = "";
+        const newStartingArray = generateContainer();
+        newStartingArray.id = 'starting-array';
+        arrayContainer.append(startingArray);
+        fillArrContainer(startingArray, generateArray());
+    }
+
+    fillArrContainer(startingArray, generateArray());
+    // fillArrContainer(startingArray, testArr);
 });
 
 sortBtn.addEventListener('click', () => {
