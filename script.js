@@ -3,7 +3,7 @@ const sortBtn = document.getElementById('sort-btn');
 const startingArray = document.getElementById('starting-array');
 const arrayContainer = document.getElementById('array-container');
 
-const testArr = [76, 18, 54, 40, 13];
+const testArr = [17, 2, 78, 36, 84];
 let count = 0;
 
 // Return a random number between 1-100
@@ -55,6 +55,7 @@ const highlightCurrentEls = (el, i) => {
     children[i + 1].style.border = "dashed 2px red";
 }
 
+// One step of recursive bubble sort algorithm
 const bubbleSortStep = (arr, i = 0, swapped = false) => {
     if (i >= arr.length - 1) {
         // Base case, array sorted
@@ -69,16 +70,18 @@ const bubbleSortStep = (arr, i = 0, swapped = false) => {
         return;
     }
 
+    // List of array div elements currently within #array-container
     const divList = Array.from(arrayContainer.children);
     const arrList = [];
 
     // Get the most recent iteration (div array of span elements)
-    // Highlight current comparison and extract span values to array
+    // Extract values of span elements within in divs to array
     for (const div of divList) {
         const arrVal = Array.from(div.children).map(span => Number(span.textContent));
         arrList.push(arrVal);
     }
 
+    // Highlight current comparison pair
     highlightCurrentEls(divList[count], i);
 
     // Swap elements
@@ -90,12 +93,14 @@ const bubbleSortStep = (arr, i = 0, swapped = false) => {
     // Fill new container with swapped array values and add to list of iterations
     const nextContainer = generateContainer();
     fillArrContainer(nextContainer, arrList[count]);
-    arrayContainer.append(nextContainer);
+    arrayContainer.appendChild(nextContainer);
 
+    // Move on to next comparison pair
     bubbleSortStep(arrList[count++], i + 1, swapped);
     return;
 }
 
+// Adds a green border to the final, sorted array div element
 const highlightFinalArray = () => {
     const finalArray = Array.from(arrayContainer.children).pop();
     finalArray.style.border = "4px solid darkgreen";
@@ -115,12 +120,13 @@ genBtn.addEventListener('click', () => {
         fillArrContainer(startingArray, generateArray());
     }
 
-    fillArrContainer(startingArray, generateArray());
-    // fillArrContainer(startingArray, testArr);
+    // fillArrContainer(startingArray, generateArray());
+    fillArrContainer(startingArray, testArr);
 });
 
 sortBtn.addEventListener('click', () => {
     const arr = Array.from(startingArray.children).map(el => Number(el.textContent));
+
     bubbleSortStep(arr);
     highlightFinalArray();
 });
