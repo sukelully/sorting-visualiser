@@ -4,6 +4,7 @@ const startingArray = document.getElementById('starting-array');
 const arrayContainer = document.getElementById('array-container');
 
 let count = 0;
+const testArr = [56, 40, 70, 9, 95];
 
 // Return a random number between 1-100
 const generateElement = () => {
@@ -117,13 +118,22 @@ genBtn.addEventListener('click', () => {
     }
 
     fillArrContainer(startingArray, generateArray());
-    sortBtn.style.display = 'block';
+    // fillArrContainer(startingArray, testArr);
+    // sortBtn.style.display = 'block';
 });
 
 sortBtn.addEventListener('click', () => {
     const arr = Array.from(startingArray.children).map(el => Number(el.textContent));
+    const arrayList = Array.from(arrayContainer.children);
+
+    // if (arrayList.length > 1) {
+    //     return;
+    // } else {
+    //     bubbleSortStep(arr);
+    //     highlightFinalArray();
+    // }
 
     bubbleSortStep(arr);
     highlightFinalArray();
-    sortBtn.style.display = 'none';
+    // sortBtn.style.display = 'none';
 });
