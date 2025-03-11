@@ -117,6 +117,7 @@ genBtn.addEventListener('click', () => {
     }
 
     fillArrContainer(startingArray, generateArray());
+    sortBtn.style.display = 'block';
 });
 
 sortBtn.addEventListener('click', () => {
@@ -124,4 +125,5 @@ sortBtn.addEventListener('click', () => {
 
     bubbleSortStep(arr);
     highlightFinalArray();
+    sortBtn.style.display = 'none';
 });
