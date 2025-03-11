@@ -21,7 +21,7 @@ const generateContainer = () => {
     return document.createElement('div');
 }
 
-// Display array values in the DOM
+// Fill an HTML element with provided array values
 const fillArrContainer = (container, arr) => {
     container.innerHTML = '';
 
@@ -38,7 +38,7 @@ const isOrdered = (a, b) => {
     return (a <= b);
 }
 
-// Swaps two sequential elements in an array if the first is larger than the second
+// Swap two sequential elements in an array if the first is larger than the second
 const swapElements = (arr, i) => {
     if (!isOrdered(arr[i], arr[i + 1])) {
         const temp = arr[i];
@@ -47,7 +47,7 @@ const swapElements = (arr, i) => {
     }
 }
 
-// Sets a border on the selected elements
+// Set a border on two elements being compared
 const highlightCurrentEls = (el, i) => {
     const children = Array.from(el.children);
 
@@ -55,13 +55,11 @@ const highlightCurrentEls = (el, i) => {
     children[i + 1].style.border = "dashed 2px red";
 }
 
-// One step of recursive bubble sort algorithm
+// Recursively sort an array
 const bubbleSortStep = (arr, i = 0, swapped = false) => {
     if (i >= arr.length - 1) {
         // Base case, array sorted
         if (!swapped) {
-            const finalArray = Array.from(arrayContainer.children)[count-1];
-            console.log(finalArray);
             return;
         }
 
@@ -84,7 +82,7 @@ const bubbleSortStep = (arr, i = 0, swapped = false) => {
     // Highlight current comparison pair
     highlightCurrentEls(divList[count], i);
 
-    // Swap elements
+    // Swap elements if applicable
     if (!isOrdered(arrList[count][i], arrList[count][i + 1])) {
         swapElements(arrList[count], i);
         swapped = true;
@@ -112,6 +110,7 @@ genBtn.addEventListener('click', () => {
     const arrayList = Array.from(arrayContainer.children);
     startingArray.innerHTML = "";
 
+    // Reset #array-container if sorting has already occurred
     if (arrayList.length > 1) {
         arrayContainer.innerHTML = "";
         const newStartingArray = generateContainer();
