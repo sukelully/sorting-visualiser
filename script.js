@@ -34,9 +34,7 @@ const fillArrContainer = (container, arr) => {
 
 // Return a boolean indicating if the first integer is 
 // less than or equal to the second
-const isOrdered = (a, b) => {
-    return (a <= b);
-}
+const isOrdered = (a, b) => a <= b;
 
 // Swap two sequential elements in an array if the first is larger than the second
 const swapElements = (arr, i) => {
@@ -119,8 +117,8 @@ genBtn.addEventListener('click', () => {
         fillArrContainer(startingArray, generateArray());
     }
 
-    // fillArrContainer(startingArray, generateArray());
-    fillArrContainer(startingArray, testArr);
+    fillArrContainer(startingArray, generateArray());
+    // fillArrContainer(startingArray, testArr);
 });
 
 sortBtn.addEventListener('click', () => {
