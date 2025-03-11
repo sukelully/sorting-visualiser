@@ -25,9 +25,9 @@ const generateContainer = () => {
 const fillArrContainer = (container, arr) => {
     container.innerHTML = '';
 
-    for (let i = 0; i < Math.min(5, arr.length); i++) {
-        let span = document.createElement('span');
-        span.textContent = arr[i];
+    for (const num of arr) {
+        const span = document.createElement('span');
+        span.textContent = num;
         container.appendChild(span);
     }
 }
