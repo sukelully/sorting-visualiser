@@ -3,7 +3,8 @@ const sortBtn = document.getElementById('sort-btn');
 const startingArray = document.getElementById('starting-array');
 const arrayContainer = document.getElementById('array-container');
 
-const testArr = [92, 3, 42, 69, 91];
+const testArr = [76, 9, 9, 61, 66];
+let count = 0;
 
 // Return a random number between 1-100
 const generateElement = () => {
@@ -51,59 +52,79 @@ const highlightCurrentEls = (el, i) => {
     const children = Array.from(el.children);
 
     children[i].style.border = "dashed 2px red";
-    if (children[i + 1]) {
-        children[i + 1].style.border = "dashed 2px red";
-    } else {
-        return;
-    }
+    children[i + 1].style.border = "dashed 2px red";
 }
 
-// Sort elements
-const bubbleSortStep = (arr, container, i = 0, swapped = false) => {
-    // Base case: return when array sorted
+const bubbleSortStep = (arr, i = 0, swapped = false) => {
+    // Paramters: arr, i = 0, swapped = false
+    /* 
+    - Base case: array is sorted [x]
+    - Else Restart sort algorithm [x]
+    - Highlight current elements
+    - Swap them
+    - Create container
+    - Fill container with new arr
+    - Append arr to #array-container
+    - Start the algorithm at the next index
+    - 
+    */
+//    console.log(arr.length);
+    console.log(swapped);
     if (i >= arr.length - 1) {
+        // Base case, array sorted
         if (!swapped) {
-            const finalArray = generateContainer();
-            fillArrContainer(finalArray, arr);
-            finalArray.setAttribute('style', 'border: 4px solid darkgreen !important');
-            arrayContainer.append(finalArray);
+            console.log('End of array and swapped = false')
             return;
         }
 
-        // Otherwise, start another full pass from the beginning
-        return bubbleSortStep(arr, container, 0, false);
+        if (count >= 10) {
+            console.log(`count has it 10`)
+            return;
+        }
+
+        // Otherwise start new pass
+        bubbleSortStep(arr, 0, false);
+        return;
     }
 
-    const currentStep = generateContainer();
+    const divList = Array.from(arrayContainer.children);
+    const arrList = [];
 
-    fillArrContainer(currentStep, arr);
-
-    if (!isOrdered(arr[i], arr[i + 1])) {
-        swapElements(arr, i);
+    // Get the most recent iteration (div array of span elements)
+    // Highlight current comparison and extract span values to array
+    for (const div of divList) {
+        const arrVal = Array.from(div.children).map(span => Number(span.textContent));
+        arrList.push(arrVal);
+    }
+    highlightCurrentEls(divList[count], i);
+    if (!isOrdered(arrList[count][i], arrList[count][i + 1])) {
+        swapElements(arrList[count], i);
         swapped = true;
     }
 
-
-    highlightCurrentEls(currentStep, i);
-    arrayContainer.append(currentStep);
-
-    // Move to the next pair
-    bubbleSortStep(arr, container, i + 1, swapped);
+    const nextContainer = generateContainer();
+    fillArrContainer(nextContainer, arrList[count]);
+    arrayContainer.append(nextContainer);
+    // ++count;
+    // console.log(count);
+    // console.log(arrList[0]);
+    bubbleSortStep(arrList[count++], i + 1, swapped);
+    return;
 }
-
 
 genBtn.addEventListener('click', () => {
     startingArray.innerHTML = "";
 
-    fillArrContainer(startingArray, generateArray());
-    // fillArrContainer(startingArray, testArr);
+    // fillArrContainer(startingArray, generateArray());
+    fillArrContainer(startingArray, testArr);
 });
 
 sortBtn.addEventListener('click', () => {
     const arr = Array.from(startingArray.children).map(el => Number(el.textContent));
-    highlightCurrentEls(startingArray, 0);
-    bubbleSortStep(arr, startingArray);
-    // bubbleSortStep(testArr, startingArray);
+    bubbleSortCount = 0;
+    // console.log(arr);
+    // bubbleSortStep(arr, startingArray);
+    bubbleSortStep(testArr);
 });
 
 // const randomElement = generateElement();
