@@ -61,7 +61,7 @@ const bubbleSortStep = (arr, i = 0, swapped = false) => {
             return;
         }
 
-        // Otherwise start new pass
+        // Otherwise start new pass with false flag
         bubbleSortStep(arr, 0, false);
         return;
     }
@@ -110,8 +110,9 @@ genBtn.addEventListener('click', () => {
 
     // Reset #array-container if sorting has already occurred
     if (arrayList.length > 1) {
-        arrayContainer.innerHTML = "";
         const newStartingArray = generateContainer();
+
+        arrayContainer.innerHTML = "";
         newStartingArray.id = 'starting-array';
         arrayContainer.append(startingArray);
         fillArrContainer(startingArray, generateArray());
@@ -119,19 +120,13 @@ genBtn.addEventListener('click', () => {
 
     fillArrContainer(startingArray, generateArray());
     // fillArrContainer(startingArray, testArr);
-    // sortBtn.style.display = 'block';
+    sortBtn.style.display = 'block';
 });
 
 sortBtn.addEventListener('click', () => {
-    const arr = Array.from(startingArray.children).map(el => Number(el.textContent));
+    count = 0;
+    const arr = Array.from(startingArray.children).map(span => Number(span.textContent));
     const arrayList = Array.from(arrayContainer.children);
-
-    // if (arrayList.length > 1) {
-    //     return;
-    // } else {
-    //     bubbleSortStep(arr);
-    //     highlightFinalArray();
-    // }
 
     bubbleSortStep(arr);
     highlightFinalArray();
