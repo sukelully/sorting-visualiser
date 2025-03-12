@@ -128,6 +128,17 @@ sortBtn.addEventListener('click', () => {
     const arr = Array.from(startingArray.children).map(span => Number(span.textContent));
     const arrayList = Array.from(arrayContainer.children);
 
+    // if (arrayList.length > 1) {
+    //     const newStartingArray = generateContainer();
+
+    //     arrayContainer.innerHTML = "";
+    //     newStartingArray.id = 'starting-array';
+    //     arrayContainer.append(startingArray);
+    //     fillArrContainer(startingArray, arr);
+    // }
+
+    if (arrayList.length > 1) return;
+
     bubbleSortStep(arr);
     highlightFinalArray();
     // sortBtn.style.display = 'none';
